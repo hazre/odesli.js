@@ -1,58 +1,52 @@
 // Type definitions for odesli.js
 // Project: https://github.com/MattrAus/odesli.js, https://www.npmjs.com/package/odesli.js
-// Definitions by: Mattr <https://github.com/MattrAus>
-// TypeScript Version: 2.7
+// TypeScript Version: 4.7
 
 declare class Odesli {
     /**
-    * 
-    * @param {string=} apiKey Limited to 10 Requests per Minute without an API Key.
-    *
-    * Email `developers@song.link` to get an API Key.
-    * 
-    * @param {string=} version Defaults to `v1-alpha.1`
-    */
+     * Create an Odesli instance
+     * @param options - Configuration options
+     */
     constructor(options?: {
         /**
-         * @param {string=} apiKey Optional: Limited to 10 Requests per Minute without an API Key.
-         * 
+         * Optional: Limited to 10 Requests per Minute without an API Key.
          * Email `developers@song.link` to get an API Key.
          */
         apiKey?: string
         /**
-         * @param {string=} version Optional: Defaults to `v1-alpha.1`
+         * Optional: Defaults to `v1-alpha.1`
          */
         version?: 'v1-alpha.1' | string
     });
 
     /**
-     * 
-     * @param {string} url Streaming service URL
-     * @param {CountryCode} [country='US'] Optional: [ISO 3166-1 Alpha-2 Code](https://www.iso.org/obp/ui/#search/code/)
-     * @returns Promise<Page.Response>
+     * Fetch song/album links by URL
+     * @param url - Streaming service URL
+     * @param country - Optional: ISO 3166-1 Alpha-2 country code
+     * @returns Promise with the API response
      */
     fetch(url: string, country?: CountryCode | 'US'): Promise<Page.Response>;
 
     /**
-     * 
-     * @param {Platform} platform Streaming service
-     * @param {entityType} type Type: song or album
-     * @param {string} id Type: song or album
-     * @param {CountryCode} [country='US'] Optional: [ISO 3166-1 Alpha-2 Code](https://www.iso.org/obp/ui/#search/code/)
-     * @returns Promise<Page.Response>
+     * Fetch song/album links by platform, type, and ID
+     * @param platform - Streaming service platform
+     * @param type - Entity type (song or album)
+     * @param id - Entity ID
+     * @param country - Optional: ISO 3166-1 Alpha-2 country code
+     * @returns Promise with the API response
      */
-    getByParams(platform: string, type: entityType, id: string, country?: CountryCode): Promise<Page.Response>;
+    getByParams(platform: Platform, type: entityType, id: string, country?: CountryCode): Promise<Page.Response>;
 
     /**
-     * 
-     * @param url Streaming service URL
-     * @param {CountryCode} [country='US'] Optional: [ISO 3166-1 Alpha-2 Code](https://www.iso.org/obp/ui/#search/code/)
-     * @returns Promise<Page.Response>
+     * Fetch song/album links by entity ID
+     * @param id - Entity ID in the format 'PLATFORM_TYPE::UNIQUEID'
+     * @param country - Optional: ISO 3166-1 Alpha-2 country code
+     * @returns Promise with the API response
      */
     getById(id: string, country?: CountryCode): Promise<Page.Response>;
 }
 
-declare namespace Page {
+export namespace Page {
     interface Response {
         /**
          * The unique ID for the input entity that was supplied in the request. 
@@ -60,26 +54,6 @@ declare namespace Page {
          * The data for this entity, such as title, artistName, etc. will be found in an object at `entitiesByUniqueId[entityUniqueId]`
         */
         entityUniqueId: string,
-
-        /**
-         * Song/Album Title of the given response, same as `Response.entitiesByUniqueId[Response.entityUniqueId].title`
-        */
-        title: string,
-
-        /**
-         * Artist's Name of the given response, same as `Response.entitiesByUniqueId[Response.entityUniqueId].artistName`
-        */
-        artist: string,
-
-        /**
-         * Type (song or album) of the given response, same as `Response.entitiesByUniqueId[Response.entityUniqueId].type`
-        */
-        type: entityType,
-
-        /**
-         * Thumbnail of the given response, same as `Response.entitiesByUniqueId[Response.entityUniqueId].thumbnailUrl`
-        */
-        thumbnail: string,
 
         /**
          * The userCountry query param that was supplied in the request. It signals
@@ -106,7 +80,7 @@ declare namespace Page {
             * only if there is a match found. E.g. if there is no YouTube match found,
             * then neither `youtube` or `youtubeMusic` properties will exist here
             */
-            [key in Platform]: {
+            [key in Platform]?: {
                 /** 
                 * The unique ID for this entity. Use it to look up data about this entity
                 * at `entitiesByUniqueId[entityUniqueId]`
@@ -160,7 +134,7 @@ declare namespace Page {
                 /**
                  * The artist/s of the `song`/`album`
                  */
-                artistName?: [string],
+                artistName?: string,
 
                 /**
                  * The coverart image URL of the `song`/`album`
@@ -194,7 +168,7 @@ declare namespace Page {
     }
 }
 
-type Platform =
+export type Platform =
     | 'spotify'
     | 'itunes'
     | 'appleMusic'
@@ -212,7 +186,7 @@ type Platform =
     | 'yandex'
     | 'spinrilla';
 
-type APIProvider =
+export type APIProvider =
     | 'spotify'
     | 'itunes'
     | 'youtube'
@@ -226,11 +200,11 @@ type APIProvider =
     | 'yandex'
     | 'spinrilla';
 
-type entityType =
+export type entityType =
     | 'song'
     | 'album'
 
-declare enum CountryCode {
+export enum CountryCode {
     Afghanistan = 'AF',
     AlandIslands = 'AX',
     Albania = 'AL',
@@ -481,4 +455,5 @@ declare enum CountryCode {
     Zambia = 'ZM',
     Zimbabwe = 'ZW',
 }
-export = Odesli;
+
+export default Odesli;

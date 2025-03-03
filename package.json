@@ -1,14 +1,25 @@
 {
   "name": "odesli.js",
-  "version": "1.0.3",
-  "description": "Node.js Client to query odesli.co (song.link/album.link) API",
+  "version": "2.0.0",
+  "description": "A simple library to interact with the Odesli (song.link) API",
+  "type": "module",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MattrAus/odesli.js.git"
+    "url": "git+https://github.com/hazre/odesli.js.git"
   },
   "keywords": [
     "odesli.co",
@@ -18,13 +29,11 @@
     "album.link",
     "albumlink"
   ],
-  "author": "Mattr <me@mtr.gg>",
+  "author": "hazre",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MattrAus/odesli.js/issues"
+    "url": "https://github.com/hazre/odesli.js/issues"
   },
-  "dependencies": {
-    "node-fetch": "^2.6.1"
-  },
-  "homepage": "https://github.com/MattrAus/odesli.js#readme"
+  "homepage": "https://github.com/hazre/odesli.js#readme",
+  "packageManager": "pnpm@9.13.2"
 }

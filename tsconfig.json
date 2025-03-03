@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ESNext",
     "declaration": false,
     "removeComments": false,
     "alwaysStrict": true,
-    "pretty": false,
-    "module": "commonjs",
-    "target": "es2019",
-    "lib": [
-      "esnext",
-      "esnext.array",
-      "esnext.asynciterable",
-      "esnext.intl",
-      "esnext.symbol"
-    ],
+    "rootDir": ".",
+    "outDir": "lib",
     "sourceMap": false,
     "skipDefaultLibCheck": true
-  }
+  },
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules"]
 }

@@ -1,18 +1,14 @@
 # odesli.js
-Node.js Client to query odesli.co (song.link/album.link) API
-
-## v1.0.4
-
-Initial release
+A simple library to interact with the Odesli (song.link) API
 
 ## Installation
 ```
-npm install odesli.js --save
+pnpm install hazre/odesli.js --save
 ```
 
 ## Initilise
 ```js
-const Odesli = require('odesli.js');
+import Odesli from "odesli.js";
 const odesli = new Odesli();
 ```
 
